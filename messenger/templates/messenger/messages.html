@@ -1,0 +1,35 @@
+{% load messenger_filters %}
+
+{% for message in messages %}
+  {% if message.sender == sender %}
+    <div id="message-{{message.pk}}" class="message sender" data-id="{{ message.pk }}"
+         {% if message.read %}data-read{% else %}data-unread{% endif %}
+    >
+      <div>
+        <div class="name">{{ sender }}</div>
+        <div class="text">{{ message.text|linebreaksbr }}</div>
+        <div class="date">
+          {{ message.created|date:"d.m.Y H:i:s" }}
+          {% if message.read %}
+            <i class="fa-solid fa-check"></i>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% else %}
+    {% message_read message %}
+    <div id="message-{{message.pk}}" class="message receiver" data-id="{{ message.pk }}">
+      <div>
+        <div class="name">{{ receiver }}</div>
+        <div class="text">{{ message.text|linebreaksbr }}</div>
+        <div class="date">{{ message.created|date:"d.m.Y H:i:s" }}</div>
+      </div>
+    </div>
+  {% endif %}
+{% empty %}
+  {% if empty %}
+    <div>
+      Еще нет ни сообщения
+    </div>
+  {% endif %}
+{% endfor %}

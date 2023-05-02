@@ -1,0 +1,35 @@
+{% extends 'default.html' %}
+
+{% block title %}
+    Сообщения от {{ message_user }} | Messenger
+{% endblock %}
+
+{% block content %}
+  <div class="messaging" data-url="{{ url }}">
+    <div class="header">
+      <div class="avatar">
+        <img alt="" src="{{ message_user.profile.user_avatar }}">
+      </div>
+      <h1>{{ message_user }}</h1>
+    </div>
+    {% if sender != receiver %}
+      <div class="messages">
+        {% include 'messages.html' with empty=True %}
+      </div>
+      <div class="sending">
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit">Отправить</button>
+        </form>
+      </div>
+    {% else %}
+     <div class="messages error">
+       Извините самому себе написать сообщение нельзя
+     </div>
+    {% endif %}
+  </div>
+  {% load static %}
+  <script src="{% static 'js/messages.js' %}"></script>
+{% endblock %}
+

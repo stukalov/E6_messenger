@@ -1,0 +1,124 @@
+
+
+
+.avatar {
+  display: inline-block;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 2em;
+}
+
+.avatar img {
+    width: 4em
+}
+
+.user_update_form .header {
+  display: flex;
+  margin-bottom: 3em;
+}
+
+.messaging .header {
+  display: flex;
+  margin-bottom: 3em;
+}
+
+.messenger_user_item {
+  display: flex;
+  align-items: center;
+}
+
+.messenger_user_item .name {
+  font-size: 2em;
+}
+
+.messenger_user_item .total {
+  padding-left: 2em;
+  padding-right: .1em;
+}
+
+.messenger_user_item .unread {
+  color: green;
+}
+
+.messenger_user_item + .messenger_user_item {
+    margin-top: 1em;
+    padding-top: 1em;
+    border-top: 1px solid var(--bs-gray-400)
+}
+
+.paginator {
+    margin-top: 1em;
+    padding-top: 1em;
+    border-top: 1px solid var(--bs-gray-400)
+}
+
+.messaging .header {
+    margin-bottom: 1em;
+}
+
+.messaging .messages {
+    border: 1px solid var(--bs-gray-400);
+    padding: .5em;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width: 100%;
+    height: 400px;
+    margin: 1em 0 1em 0;
+    border-radius: .5em;
+}
+
+.messaging .messages.error {
+    overflow: hidden;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.messaging .messages .message {
+    display: flex;
+    margin: .5em 0 .5em 0;
+}
+.messaging .messages .sender {
+    justify-content: end
+}
+.messaging .messages .receiver {
+    justify-content: start
+}
+
+.messaging .messages .message > div {
+    border-radius: .5em;
+    padding: .1em .4em .1em .4em;
+    overflow: hidden;
+}
+
+.messaging .messages .sender > div {
+    background-color: #8FBC8F;
+}
+
+.messaging .messages .receiver > div {
+    background-color: #00bfff;
+}
+
+.messaging .messages .message .name {
+    font-weight: bold;
+    font-size: .8em
+}
+.messaging .messages .message .text {
+}
+.messaging .messages .message .date {
+    font-size: .6em
+}
+.messaging .messages .sender > div > div {
+    text-align: right;
+}
+.messaging .messages .receiver > div > div {
+    text-align: left;
+}
+.messaging textarea {
+    width: 100%;
+    height: 2em;
+}
+.messaging .messages .sender .date i {
+    color: var(--bs-indigo);
+}

@@ -1,0 +1,42 @@
+{% extends 'default.html' %}
+
+{% load messenger_filters %}
+
+{% block title %}
+    Список пользователей | Messenger
+{% endblock %}
+
+{% block content %}
+  <h1>Список пользователей</h1>
+
+  <div class="messenger_user_list">
+    {% for message_user in users %}
+      <div class="messenger_user_item">
+        <div class="avatar">
+          <img alt="" src="{{ message_user.profile.user_avatar }}">
+        </div>
+        <div class="name">
+          <a href="{% url 'messenger.user.view' message_user.pk %}">
+            {{ message_user }}
+          </a>
+          {% messages_total message_user user as total %}
+          {% messages_unread message_user user as unread %}
+          {% if total %}
+            <span class="total" title="Всего сообщений">{{ total }}</span>
+            {% if unread %}
+              (<span class="unread" title="Непрочитанных сообщений">{{ unread }}</span>)
+            {% endif %}
+          {% endif %}
+        </div>
+      </div>
+    {% empty %}
+      <div>
+        Еще нет ни одного пользователя
+      </div>
+    {% endfor %}
+
+    {% include 'paginator.html' %}
+  </div>
+
+{% endblock %}
+
