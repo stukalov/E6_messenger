@@ -18,4 +18,3 @@ class ChatRoom(models.Model):
     @property
     def get_room_url(self):
         return reverse('chat.room', kwargs={'pk': self.pk}) if self.pk else ''
-

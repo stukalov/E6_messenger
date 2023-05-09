@@ -34,16 +34,20 @@ class AjaxView(AccessMixin, View):
     raise_exception = True
     permission_denied_message = 'Изменять чат может только его создатль'
 
+    def __init__(self, **kwargs):
+        super().__init__(kwargs)
+        self.object = None
+
     def send(self):
         result = self.object.__dict__.copy()
         del result['_state']
         result['room_url'] = self.object.get_room_url
         return JsonResponse(result)
 
-    def get(self, request, *args, **kwargs):
+    def get(self):
         return self.send()
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         if request.content_type != 'application/json':
             raise Http404()
         if self.object.admin != request.user:
@@ -67,4 +71,3 @@ class Chat(LoginRequiredMixin, DetailView):
     model = ChatRoom
     template_name = 'chat_room.html'
     context_object_name = 'chat_room'
-

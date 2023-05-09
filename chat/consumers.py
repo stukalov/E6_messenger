@@ -5,6 +5,13 @@ from django.urls import reverse
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(args, kwargs)
+        self.user_url = None
+        self.group_name = None
+        self.room_name = None
+        self.user = None
+
     async def connect(self):
         self.user = self.scope["user"]
         self.room_name = self.scope["url_route"]["kwargs"]["chat_room_id"]
@@ -18,7 +25,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def disconnect(self, close_code):
         await self.channel_layer.group_discard(self.group_name, self.channel_name)
 
-    async def receive(self, text_data):
+    async def receive(self, text_data=None, bytes_data=None):
         text_data_json = json.loads(text_data)
         message = text_data_json["message"]
 

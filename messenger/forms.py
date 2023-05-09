@@ -1,9 +1,9 @@
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 
 
-class SaveAvatar:
+class SaveAvatarMixin:
     def save(self):
         user = super().save()
         avatar = self.cleaned_data['avatar']
@@ -14,7 +14,7 @@ class SaveAvatar:
         return user
 
 
-class SignupForm(SaveAvatar, UserCreationForm):
+class SignupForm(SaveAvatarMixin, UserCreationForm):
     avatar = forms.ImageField(label='Аватар', required=False)
 
     class Meta:
@@ -28,7 +28,7 @@ class SignupForm(SaveAvatar, UserCreationForm):
         )
 
 
-class UserUpdateForm(SaveAvatar, forms.ModelForm):
+class UserUpdateForm(SaveAvatarMixin, forms.ModelForm):
     avatar = forms.ImageField(label='Аватар', required=False)
 
     class Meta:
@@ -41,5 +41,3 @@ class UserUpdateForm(SaveAvatar, forms.ModelForm):
 
 class SendMessage(forms.Form):
     text = forms.CharField(label='', widget=forms.Textarea)
-
-
