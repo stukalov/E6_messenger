@@ -30,9 +30,7 @@
           <a href="{% url 'chat.room' chat.pk %}">
             {{ chat.title }}
           </a>
-          <div class="descr">
-            {{ chat.description|linebreaksbr }}
-          </div>
+          <div class="descr">{{ chat.description|linebreaksbr }}</div>
         </div>
         <div class="col col-4">
           {% if user == chat.admin %}

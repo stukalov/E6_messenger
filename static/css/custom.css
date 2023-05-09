@@ -180,3 +180,6 @@ button:hover {
     border-radius: .5em;
     padding: .5em;
 }
+.messenger-chat-list .descr:empty {
+    display: none;
+}
