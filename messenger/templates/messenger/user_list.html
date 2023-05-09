@@ -9,22 +9,47 @@
 {% block content %}
   <h1>Список пользователей</h1>
 
-  <div class="messenger_user_list">
-    {% for message_user in users %}
-      <div class="messenger_user_item">
-        <div class="avatar">
-          <img alt="" src="{{ message_user.profile.user_avatar }}">
+  <div class="messenger-user-list  container-fluid px-0">
+    {% if users %}
+      <div class="row gx-0">
+        <div class="col col-8">
+          Пользователь
         </div>
-        <div class="name">
-          <a href="{% url 'messenger.user.view' message_user.pk %}">
-            {{ message_user }}
-          </a>
-          {% messages_total message_user user as total %}
-          {% messages_unread message_user user as unread %}
-          {% if total %}
-            <span class="total" title="Всего сообщений">{{ total }}</span>
-            {% if unread %}
-              (<span class="unread" title="Непрочитанных сообщений">{{ unread }}</span>)
+        <div class="col col-4">
+          Количество сообщений
+        </div>
+      </div>
+    {% endif %}
+
+    {% for message_user in users %}
+      <div class="row gx-0">
+        <div class="col col-8">
+          <div class="avatar align-middle">
+            <img alt="" src="{{ message_user.profile.user_avatar }}">
+          </div>
+          <div class="name align-middle">
+            <a href="{% url 'messenger.user.view' message_user.pk %}">
+              {{ message_user }}
+            </a>
+          </div>
+        </div>
+        <div class="col col-4 d-table">
+          {% if message_user == user %}
+            <div class="align-middle d-table-cell">
+              <a class="button" href="{% url 'messenger.user.update' message_user.pk %}">
+                Профиль
+              </a>
+            </div>
+          {% else %}
+            {% messages_total message_user user as total %}
+            {% messages_unread message_user user as unread %}
+            {% if total %}
+              <div class="total align-middle d-table-cell" title="Всего сообщений">
+                {{ total }}
+                {% if unread %}
+                  (<span class="unread" title="Непрочитанных сообщений">{{ unread }}</span>)
+                {% endif %}
+              </div>
             {% endif %}
           {% endif %}
         </div>

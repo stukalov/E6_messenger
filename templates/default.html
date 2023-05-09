@@ -27,7 +27,8 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
                       {% if user.is_authenticated %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'messenger.users' %}">Пользователи</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'chat.list' %}">Список чатов</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'messenger.users' %}">Пользователи и сообщения</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'messenger.user.update' user.pk %}">{{ user }}</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Выход</a></li>
                       {% else %}

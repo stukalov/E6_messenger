@@ -1,0 +1,55 @@
+{% extends 'default.html' %}
+
+{% load messenger_filters %}
+
+{% block title %}
+    Список чатов | Messenger
+{% endblock %}
+
+{% block content %}
+  <h1>Список чатов</h1>
+
+  <div class="messenger_chat_new">
+    <a class="button" href="{% url 'chat.new' %}">Создать новый чат</a>
+  </div>
+
+  <div class="messenger-chat-list container-fluid px-0">
+    {% if chats %}
+      <div class="row gx-0">
+        <div class="col col-8">
+          Наименование чата
+        </div>
+        <div class="col col-4">
+          Администратор
+        </div>
+      </div>
+    {% endif %}
+    {% for chat in chats %}
+      <div class="row gx-0">
+        <div class="col col-8">
+          <a href="{% url 'chat.room' chat.pk %}">
+            {{ chat.title }}
+          </a>
+          <div class="descr">
+            {{ chat.description|linebreaksbr }}
+          </div>
+        </div>
+        <div class="col col-4">
+          {% if user == chat.admin %}
+            <a class="button" href="{% url 'chat.edit' chat.pk %}">
+              Редактровать
+            </a>
+          {% else %}
+            <a href="{% url 'messenger.user.view' chat.admin.pk %}">
+              {{ chat.admin }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% include 'paginator.html' %}
+
+{% endblock %}
+

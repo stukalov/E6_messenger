@@ -35,6 +35,7 @@ ALLOWED_HOSTS = ['127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    "daphne",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     'fontawesome_6',
 
     'messenger.apps.MessengerConfig',
+    'chat.apps.ChatConfig',
 ]
 
 SITE_ID = 1
@@ -68,6 +70,7 @@ TEMPLATES = [
         'DIRS': [
             BASE_DIR / 'templates',
             BASE_DIR / 'messenger/templates/messenger',
+            BASE_DIR / 'chat/templates/chat',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -81,8 +84,17 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'main.wsgi.application'
+# WSGI_APPLICATION = 'main.wsgi.application'
+ASGI_APPLICATION = "main.asgi.application"
 
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases

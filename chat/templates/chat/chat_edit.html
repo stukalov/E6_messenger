@@ -1,0 +1,24 @@
+{% extends 'default.html' %}
+
+{% block content %}
+  <h1 class="title">
+  </h1>
+
+  <div class="chat-edit" data-url="{{ ajax_url }}" {% if chat_room.pk %}data-id="{{ chat_room.pk }}"{% endif %}>
+    {% csrf_token %}
+    <p>
+      <label for="chat-title">Название чата</label>
+      <input id="chat-title" class="chat-title" type="text" name="chat-title">
+    </p>
+    <p>
+      <label for="chat-descr">Описание чата</label>
+      <textarea id="chat-descr" class="chat-descr" name="chat-descr" rows="5"></textarea>
+    </p>
+    <button type="submit">Сохранить</button>
+    <a class="button" href="">Перейти в чат</a>
+  </div>
+
+  {% load static %}
+  <script src="{% static 'js/chat_edit.js' %}"></script>
+{% endblock %}
+

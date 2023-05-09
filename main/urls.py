@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 from django.conf.urls.static import static
 from messenger.urls import messenger_urlpatterns
+from chat.urls import chat_urlpatterns
 from messenger.views import index_page
 from main import settings
 
@@ -27,6 +28,7 @@ urlpatterns = [
     path('', index_page),
     path('accounts/', include('django.contrib.auth.urls')),
     path('messenger/', include(messenger_urlpatterns)),
+    path('chat/', include(chat_urlpatterns)),
 
     re_path(r"^admin/", admin.site.urls),
 ]

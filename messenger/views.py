@@ -1,15 +1,13 @@
-from django.core import serializers
+from django.shortcuts import render
 from django.http import *
-from django.urls import reverse, reverse_lazy
-from django.views.generic import ListView, TemplateView, CreateView, UpdateView, DeleteView, DetailView, View
-from django.views.generic.edit import FormMixin, FormView
+from django.urls import reverse
+from django.views.generic import ListView, TemplateView, CreateView, UpdateView, DetailView, View
+from django.views.generic.edit import FormMixin
 from django.contrib.auth.mixins import AccessMixin, LoginRequiredMixin
 from django.db.models import Q
+
 from .forms import *
 from .models import *
-
-from django.shortcuts import render
-from .forms import UserCreationForm
 
 
 def index_page(request):
@@ -137,5 +135,3 @@ class Messages(View):
             'empty': False,
         }
         return render(request, 'messages.html', context)
-
-

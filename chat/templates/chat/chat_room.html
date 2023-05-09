@@ -1,0 +1,22 @@
+{% extends 'default.html' %}
+
+{% block title %}
+    Чат | Messenger
+{% endblock %}
+
+{% block content %}
+    <div class="chat-room" data-id="{{ chat_room.id }}" data-url="{{ chat_room.get_url }}">
+        <h1 class="title">
+            {{ chat_room.title }}
+        </h1>
+        <div class="description">
+            {{ chat_room.description|linebreaksbr }}
+        </div>
+        <div class="chat">&nbsp;</div>
+        <input class="message-input" type="text" size="100">
+        <button class="message-submit">Отправить</button>
+    </div>
+    {% load static %}
+    <script src="{% static 'js/chat_room.js' %}"></script>
+{% endblock %}
+
