@@ -35,7 +35,7 @@ class AjaxView(AccessMixin, View):
     permission_denied_message = 'Изменять чат может только его создатль'
 
     def __init__(self, **kwargs):
-        super().__init__(kwargs)
+        super().__init__(**kwargs)
         self.object = None
 
     def send(self):
