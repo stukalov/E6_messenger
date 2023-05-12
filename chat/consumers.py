@@ -6,7 +6,8 @@ from django.urls import reverse
 
 class ChatConsumer(AsyncWebsocketConsumer):
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.user_url = None
         self.group_name = None
         self.room_name = None
