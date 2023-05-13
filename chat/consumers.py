@@ -46,6 +46,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         )
 
     async def chat_message(self, event):
-        await self.send(text_data=json.dumps(event["data"]))
+        if self.scope["user"].pk != event["user"]["id"]:
+            await self.send(text_data=json.dumps(event["data"]))
 
         
