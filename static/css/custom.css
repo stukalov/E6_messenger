@@ -105,6 +105,7 @@
 
 .chat-room .chat {
     height: 20em;
+    overflow-y: scroll;
 }
 
 .chat-room .chat,
