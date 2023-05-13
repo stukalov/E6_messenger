@@ -9,20 +9,29 @@
 
     connect();
 
-    function message(message, user) {
+    function display_message(html) {
         const element = document.createElement("div");
-        if (user === undefined) {
-            element.style.color = "red";
-            element.innerHTML = message;
-        }
-        else {
-            element.innerHTML = `<a href="${user.url}">${user.name}:</a> ${message}`;
-        }
+        element.innerHTML = html;
         if (chat.innerHTML == '&nbsp;') {
             chat.innerHTML = '';
         }
         chat.insertAdjacentElement("beforeend", element);
         chat.scrollTop = chat.scrollHeight;
+    }
+
+    function send_message(message, socket) {
+        if (message) {
+            display_message(`<span style="font_weight: bold; color: green;">Вы отправили:</span>  ${message}`);
+            socket.send(JSON.stringify({'message': message}));
+        }
+    }
+
+    function received_message(message, user) {
+        display_message(`<a href="${user.url}">${user.name}:</a> ${message}`);
+    }
+
+    function info_message(message) {
+        display_message(`<span style="color: red;">${message}</span>`);
     }
 
     function connect(start_message) {
@@ -32,19 +41,19 @@
             input.addEventListener('keyup', keyup);
             submit.addEventListener('click', click);
             if (start_message) {
-                message(start_message);
+                info_message(start_message);
             }
         }
         socket.onclose = function(event) {
             input.removeEventListener('keyup', keyup);
             submit.removeEventListener('click', click);
             console.error('Chat socket closed unexpectedly');
-            message('Попытка восстановить соединение через 5 секунд')
+            info_message('Попытка восстановить соединение через 5 секунд')
             setTimeout(connect, 5000, 'Соединение восстановлено');
         };
         socket.onmessage = function(event) {
             const data = JSON.parse(event.data);
-            message(data.message, data.user);
+            received_message(data.message, data.user);
         };
 
         function keyup(event) {
@@ -52,12 +61,10 @@
                 submit.click();
             }
         }
+
         function click() {
-            const message = input.value;
-            if (message) {
-                socket.send(JSON.stringify({'message': message}));
-                input.value = '';
-            }
+            send_message(input.value, socket);
+            input.value = '';
         }
     }
 
